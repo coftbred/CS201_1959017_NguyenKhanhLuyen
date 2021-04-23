@@ -10,29 +10,25 @@ function getImg() {
   xhr.open("GET", url, true);
   xhr.onload = function() {
     if (this.status == 200) {
-      let output = "";
-      let out2 = "";
       let results = JSON.parse(this.responseText);
-      results.forEach((item, i) => {
-        output = `
-        <img src='${item.image}' class='img-fluid' width='300px'>
-        `;
-        out2 = `
-        <p> ${item.title} </p>
-        <button type='button' name='button' class='btn btn-primary'>Read More</button>
-        `;
-      });
-      imgProduct.forEach((item, i) => {
-        item.innerHTML = output;
-      });
-      imgPost.forEach((item, i) => {
-        item.innerHTML = output;
-      });
-      imgPost2.forEach((item, i) => {
-        item.innerHTML = out2;
-      });
-
+      postImg(results);
     };
   }
   xhr.send();
+}
+
+function postImg(results) {
+  let output = "";
+  let out2 = "";
+  let i = 0;
+  imgProduct.forEach((item) => {
+    output = `
+      <img src='${results[i].image}' class='img-fluid' width='300px'>
+    `;
+    i++;
+    console.log(results[i].image);
+  });
+  imgProduct.innerHTML = output;
+  console.log(output);
+  console.log(imgProduct);
 }
